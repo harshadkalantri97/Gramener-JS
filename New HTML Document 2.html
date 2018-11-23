@@ -1,0 +1,186 @@
+<html>
+<head>
+	<title>Create Elements Dynamically using jQuery</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<style type="text/css">
+		.red{
+			color: white;
+			background-color: blue!important;
+		}
+		.red1{
+			color: white;
+			 border-top: 3px solid orange;
+			background-color: blue!important;
+		}
+		.blue{
+			color: white;
+			background-color: black!important;
+		}.blue1{
+			 border-top: 3px solid orange;
+			color: white;
+			background-color: black!important;
+		}
+	</style>
+</head>
+
+<body>
+	<p>Click the button and each will perform some dynamic function!</p>
+	<div id="main">
+		<input type="button" id="btAdd" value="Add Element" class="bt"  />
+		<input type="button" id="btRemove" value="Remove Element" class="bt" />
+		<!-- <input type="button" id="btRemoveAll" value="Remove All" class="bt" /> -->
+		<br />
+
+		<br><br><span>Stack: </span> <span id="demo"></span>
+		<!-- <p id="demo"></p> -->
+	</div>
+</body>
+
+<script>
+
+	function increaseFontSize(vla) {
+   var p = document.getElementById("demo");
+   p.style.fontSize = vla+"px";
+}
+
+	function decreaseFontSize(vla) {
+   var p = document.getElementById("demo");
+   p.style.fontSize = vla+"px";
+}
+
+
+	$(document).ready(function() {
+
+		var iCnt = 0;
+        // CREATE A "DIV" ELEMENT AND DESIGN IT USING jQuery ".css()" CLASS.
+        var container = $(document.createElement('div')).css({
+        	padding: '5px', margin: '20px', width: '270px', border: '1px dashed',
+        	borderTopColor: '#999', borderBottomColor: '#999',
+        	borderLeftColor: '#999', borderRightColor: '#999'
+        });
+
+        $('#btAdd').click(function() {
+        	if (iCnt <= 99) {
+
+        		iCnt = iCnt + 1;
+        		document.getElementById("demo").innerHTML = iCnt;
+        		if(iCnt %5 ==0){
+        			if(iCnt %2 ==0){
+ // ADD TEXTBOX.
+ increaseFontSize(iCnt);
+   $(container).append('<input type=button class="input red1" id=tb' + iCnt + ' ' +
+   	'value=" ' + iCnt + '" />');
+
+                // SHOW SUBMIT BUTTON IF ATLEAST "1" ELEMENT HAS BEEN CREATED.
+                if (iCnt == 1) {
+                	var divSubmit = $(document.createElement('div'));
+               
+   
+                	$(divSubmit).append('<input type=button class="bt "' + 
+                		'onclick="GetTextValue()" ');
+                }
+
+                // ADD BOTH THE DIV ELEMENTS TO THE "main" CONTAINER.
+                $('#main').after(container, divSubmit);
+  
+        			}
+        			else{
+        				 // ADD TEXTBOX.
+        				 increaseFontSize(iCnt);
+   $(container).append('<input type=button class="input blue1" id=tb' + iCnt + ' ' +
+   	'value=" ' + iCnt + '" />');
+
+                // SHOW SUBMIT BUTTON IF ATLEAST "1" ELEMENT HAS BEEN CREATED.
+                if (iCnt == 1) {
+                	var divSubmit = $(document.createElement('div'));
+               
+   
+                	$(divSubmit).append('<input type=button class="bt "' + 
+                		'onclick="GetTextValue()" ');
+                }
+
+                // ADD BOTH THE DIV ELEMENTS TO THE "main" CONTAINER.
+                $('#main').after(container, divSubmit);
+  
+        			}
+            }else if(iCnt %2 ==0){
+	   // ADD TEXTBOX.
+	 increaseFontSize(iCnt);
+	   $(container).append('<input type=button class="input red" id=tb' + iCnt + ' ' +
+	   	'value=" ' + iCnt + '" />');
+
+                // SHOW SUBMIT BUTTON IF ATLEAST "1" ELEMENT HAS BEEN CREATED.
+                if (iCnt == 1) {
+                	var divSubmit = $(document.createElement('div'));
+                	$(divSubmit).append('<input type=button class="bt "' + 
+                		'onclick="GetTextValue()"');
+                }
+
+                // ADD BOTH THE DIV ELEMENTS TO THE "main" CONTAINER.
+                $('#main').after(container, divSubmit);
+            }else {
+	   // ADD TEXTBOX.
+	increaseFontSize(iCnt);
+	   $(container).append('<input type=button class="input blue" id=tb' + iCnt + ' ' +
+	   	'value=" ' + iCnt + '" />');
+
+                // SHOW SUBMIT BUTTON IF ATLEAST "1" ELEMENT HAS BEEN CREATED.
+                if (iCnt == 1) {
+                	var divSubmit = $(document.createElement('div'));
+                	$(divSubmit).append('<input type=button class="bt "' + 
+                		'onclick="GetTextValue()"');
+                }
+
+                // ADD BOTH THE DIV ELEMENTS TO THE "main" CONTAINER.
+                $('#main').after(container, divSubmit);
+            }
+
+        }
+            // AFTER REACHING THE SPECIFIED LIMIT, DISABLE THE "ADD" BUTTON.
+            else {      
+            	$(container).append('<label>Reached the limit</label>'); 
+            	$('#btAdd').attr('class', 'bt-disable'); 
+            	$('#btAdd').attr('disabled', 'disabled');
+            }
+        });
+
+        // REMOVE ONE ELEMENT PER CLICK.
+        $('#btRemove').click(function() {
+        	if (iCnt != 0) { $('#tb' + iCnt).remove(); iCnt = iCnt - 1; 
+        document.getElementById("demo").innerHTML = iCnt; decreaseFontSize(iCnt);}
+
+        	if (iCnt == 0) { 
+        		document.getElementById("demo").innerHTML = iCnt;
+        		$(window.alert("Empty Stack"));
+        		$(container)
+        		.empty() 
+        		.remove(); 
+
+
+
+        		$('#btSubmit').remove(); 
+        		$('#btAdd')
+        		.removeAttr('disabled') 
+        		.attr('class', 'bt');
+        	}
+        });
+
+        // REMOVE ALL THE ELEMENTS IN THE CONTAINER.
+        $('#btRemoveAll').click(function() {
+        	$(container)
+        	.empty()
+        	.remove(); 
+
+        	$('#btSubmit').remove(); 
+        	iCnt = 0; 
+
+        	$('#btAdd')
+        	.removeAttr('disabled') 
+        	.attr('class', 'bt');
+
+        });
+    });
+
+</script>
+</html>

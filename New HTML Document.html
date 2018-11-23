@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	.my{
+/*		width: 60px!important;
+		height: 60px!important;
+*/	}
+	</style>
+</head>
+<body>
+
+<canvas id="myChart" class="my"></canvas>
+  
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<script type="text/javascript">
+	var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ["TRADITIONAL","GDS","MANAGED SERVICES","CONTINGENT","DIGITAL",],
+        datasets: [{
+            label: '# of Votes',
+            data: [50,13,9,9,19],
+            text: "ff",
+            backgroundColor: [
+             
+                'rgba(31, 119, 180, 1)',
+                'rgba(174, 199, 232, 1)',
+                'rgba(255, 127, 14, 1)',
+                'rgba(255, 187, 120, 1)',
+                'rgba(44, 160, 44, 1)'
+
+            ],
+            borderColor: [
+               
+                'rgba(31, 119, 180, 1)',
+                'rgba(174, 199, 232, 1)',
+                'rgba(255, 127, 14, 1)',
+                'rgba(255, 187, 120, 1)',
+                'rgba(44, 160, 44, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        rotation: 1 * Math.PI,
+        circumference: 1 * Math.PI
+    }
+});
+</script>
+</body>
+</html>
